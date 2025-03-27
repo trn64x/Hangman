@@ -41,7 +41,7 @@ function App() {
     if (clickedLetters.has(value)) return;
 
     setClickedLetters(prev => new Set([...prev, value]));
-
+//ugh
     if (isLetter(value)) {
       setDisplay(prevDisplay => ({
         ...prevDisplay,

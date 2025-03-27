@@ -1,12 +1,10 @@
 import React, { createContext, useState, ReactNode } from 'react';
 
-// Definicja typu dla kontekstu
 type LoseContextType = {
   lose: boolean;
   setLose: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-// Tworzymy kontekst z domyślną wartością (która będzie musiała być zaktualizowana później)
 export const newLoseContext = createContext<LoseContextType | undefined>(undefined);
 
 type LoseContextProviderProps = {

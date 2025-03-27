@@ -1,6 +1,5 @@
 import React, { createContext, useState, ReactNode } from 'react';
 
-// Definicja typu dla kontekstu
 type WinContextType = {
   win: boolean;
   setWin: React.Dispatch<React.SetStateAction<boolean>>;
