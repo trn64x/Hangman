@@ -1,13 +1,14 @@
 import React, { createContext, useState, ReactNode } from 'react';
 
-type LoseContextType = {
+interface LoseContextType {
   lose: boolean;
   setLose: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const newLoseContext = createContext<LoseContextType | undefined>(undefined);
 
-type LoseContextProviderProps = {
+interface LoseContextProviderProps {
   children: ReactNode;
 };
 

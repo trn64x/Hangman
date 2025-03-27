@@ -2,6 +2,7 @@ import './App.css';
 import { useState, useEffect, useContext } from 'react';
 import { newLoseContext } from './context/losecontextprovider';
 import { newWinContext } from './wincontextprovider/wincontextprovider';
+import { coinContext } from './coins/Coincontext';
 
 function App() {
   const [display, setDisplay] = useState<{ [key: string]: boolean }>({});
@@ -9,19 +10,22 @@ function App() {
   const [selectedWord, setSelectedWord] = useState<string[]>([]);
   const [clickedLetters, setClickedLetters] = useState<Set<string>>(new Set());
   const [part, setPart] = useState<number>(0);
-  
+  const coinCont= useContext(coinContext);
   const loseContext = useContext(newLoseContext);
   const winContext = useContext(newWinContext);
-
+  if(!coinCont) {
+    throw new Error("coins failed");
+  }
   if (!loseContext) {
-    throw new Error("skibidi");
+    throw new Error("lose failed");
   }
   if (!winContext) {
-    throw new Error("fanum");
+    throw new Error("win failed");
   }
-
+  const { coins, setCoins } = coinCont;
   const { lose, setLose } = loseContext;
   const { win, setWin } = winContext;
+  let update = false;
 
   useEffect(() => {
     if (executed) return;
@@ -50,17 +54,30 @@ function App() {
 
       const revealedLetters = Object.keys(display).filter(letter => display[letter]).length;
       if (revealedLetters + 1 === new Set(selectedWord).size) { 
-        setWin(true);
+        update = true;
+        setTimeout(()=>{
+          setWin(true);
+          updated();
+        },200)
       }
     } else {
-      if (part < 10) {
+      if (part <= 9) {
         setPart(prevPart => prevPart + 1);
       } else {
+        update = true;
+        setTimeout(()=>{
         setLose(true);
+        updated();
+      },200)
       }
     }
+
   };
 
+const updated = ():void => {
+return setCoins((prevCoins) => lose ? prevCoins - 100 : prevCoins + 100);
+
+}
   return (
     <>
       <div className="figure-container">
@@ -106,6 +123,7 @@ function App() {
           ))}
         </div>
         <div className="status">{lose ? "U losed" : ""}{win ? "U won" : ""}</div>
+        <div className="coins">Coins: {lose || win ? coins : coins} </div>
       </div>
     </>
   );

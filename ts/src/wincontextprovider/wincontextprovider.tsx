@@ -1,12 +1,12 @@
 import React, { createContext, useState, ReactNode } from 'react';
-
-type WinContextType = {
-  win: boolean;
+interface WinContextType {
+  win: boolean,
   setWin: React.Dispatch<React.SetStateAction<boolean>>;
 };
+// eslint-disable-next-line react-refresh/only-export-components
 export const newWinContext = createContext<WinContextType | undefined>(undefined);
 
-type LoseContextProviderProps = {
+interface LoseContextProviderProps {
   children: ReactNode;
 };
 
