@@ -94,7 +94,7 @@ return setCoins((prevCoins) => lose ? prevCoins - 100 : prevCoins + 100);
           {part >= 10 && <line x1="140" y1="170" x2="160" y2="200" className="figure-part" />}
         </svg>
 
-        <div>Wrong letters: {[...clickedLetters].filter(letter => !new Set(selectedWord).has(letter)).join(", ")}</div>
+        <div className="wrongLetters">Wrong letters: {[...clickedLetters].filter(letter => !new Set(selectedWord).has(letter)).join(", ")}</div>
       </div>
 
       <div className="container-right">
